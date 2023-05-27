@@ -3,10 +3,10 @@
 <%= render @user %>
 
 <div>
-  <% if logged_in? && @user == current_user %>
-    <%= link_to "編集する", edit_user_path(@user), class: "ui inverted green button" %>
-    <%= link_to "削除する", @user, class: "ui inverted red button", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+  <% if @user == current_user || current_user[:admin] == true %>
+    <%= link_to "編集", edit_user_path(@user), class: "ui inverted green button" %>
+    <%= link_to "削除", @user, class: "ui inverted red button", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
   <% end %>
 
-  <%= link_to "Back to users", users_path %>
+  <%= link_to "講座一覧へもどる", lessons_path %>
 </div>

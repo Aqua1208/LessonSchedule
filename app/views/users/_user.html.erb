@@ -1,4 +1,6 @@
-<div id="<%= dom_id user %>">
+<%
+=begin%>
+ <div id="<%= dom_id user %>">
   <p>
     <strong>Name:</strong>
     <%= user.user_name %>
@@ -13,5 +15,12 @@
     <strong>Admin:</strong>
     <%= user.admin %>
   </p>
+</div> 
+<%
+=end%>
 
-</div>
+  <tr>
+    <th>#</th>
+    <th>利用者名</th>
+    <th></th>
+  </tr>

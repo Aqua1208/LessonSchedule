@@ -8,6 +8,7 @@ class LessonsController < ApplicationController
 
   # GET /lessons/1 or /lessons/1.json
   def show
+    @participants = Participant.all
   end
 
   # GET /lessons/new
