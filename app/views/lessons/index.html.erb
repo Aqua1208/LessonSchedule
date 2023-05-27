@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Lessons</h1>
+
+<div id="lessons">
+  <% @lessons.each do |lesson| %>
+    <%= render lesson %>
+    <%= link_to "詳細", lesson %>
+  <% end %>
+</div>
+
+<%= link_to "新規作成", new_lesson_path, class: "button" %>
+
+<% if logged_in? %>
+  <%= button_to "サインアウト", signout_path, method: :delete %>
+<% end %>
