@@ -1,0 +1,13 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @lesson %>
+
+<div>
+  <%= link_to "Edit this lesson", edit_lesson_path(@lesson) %> |
+  <%= link_to "Back to lessons", lessons_path %>
+
+  <%= form_with model:Participant.new do |f| %>
+    <% session[:lesson_id] = params[:id] %>
+    <%= f.submit "参加登録", disable_with: 'Submiting...' %>
+  <% end %>
+</div>
