@@ -10,6 +10,7 @@
 <div id="users">
   <table>
     <tr>
+      <%= render users %>
       <th>#</th>
       <th>利用者名</th>
       <th></th>
@@ -17,7 +18,7 @@
     <% @users.each do |user| %>
       <tr>
         <td><%= user.id %></td>
-        <td><%= user.user_name %></td>
+        <td><%= user.name %></td>
         <td><%= link_to "詳細", user %></td>
       </tr>
     <% end %>

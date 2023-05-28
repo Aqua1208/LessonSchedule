@@ -1,3 +1,8 @@
+<nav>
+  <h1>User / <%= @user.name %></h1>
+  <%= button_to "SignOut", signout_path, method: :delete %>
+</nav>
+
 <p style="color: green"><%= notice %></p>
 
 <%= render @user %>
