@@ -1,14 +1,27 @@
+<nav class="admin">
+  <h1>Users</h1>
+  <div>
+    <%= button_to "SignOut", signout_path, method: :delete %>
+    <%= button_to "Lessons", lessons_path, method: :get %>
+  </div>
+</nav>
 <p style="color: green"><%= notice %></p>
 
-<h1>Users</h1>
-
 <div id="users">
-  <% @users.each do |user| %>
-    <%= render user %>
-    <p>
-      <%= link_to "Show this user", user %>
-    </p>
-  <% end %>
+  <table>
+    <tr>
+      <th>#</th>
+      <th>利用者名</th>
+      <th></th>
+    </tr>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><%= user.user_name %></td>
+        <td><%= link_to "詳細", user %></td>
+      </tr>
+    <% end %>
+  </table>
 </div>
 
 <%= link_to "New user", new_user_path %>
