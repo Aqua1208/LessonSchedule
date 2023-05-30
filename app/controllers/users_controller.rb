@@ -71,7 +71,7 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :password, :password_confirmation, :admin)
+      params.require(:user).permit(:user_name, :password, :password_confirmation, :admin)
     end
 
     def require_permit_user
@@ -82,4 +82,11 @@ class UsersController < ApplicationController
         redirect_to @user, alert: "許可されていない操作です。"
       end
     end
+
+    def require_same_user
+      if current_user != @user
+        flash[:alert] = "許可されていない操作です。プロフィールの編集、削除は作成者のみ可能です。"
+        redirect_to @user
+    end
+end
 end
