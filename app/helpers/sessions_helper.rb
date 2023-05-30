@@ -11,6 +11,12 @@ module SessionsHelper
     !current_user.nil?
   end
 
+  def login_administrator?
+    unless logged_in? && current_user.admin
+      flash[:alert] = "ログインしてください。"
+    end
+  end
+
   def require_user
     if !logged_in?
       flash[:alert] = "ログインしてください。"

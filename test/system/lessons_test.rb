@@ -14,7 +14,7 @@ class LessonsTest < ApplicationSystemTestCase
     visit lessons_url
     click_on "New lesson"
 
-    fill_in "Lesson name", with: @lesson.lesson_name
+    fill_in "Lesson name", with: @lesson.name
     fill_in "Teacher", with: @lesson.teacher
     fill_in "Time", with: @lesson.time
     click_on "Create Lesson"
@@ -27,7 +27,7 @@ class LessonsTest < ApplicationSystemTestCase
     visit lesson_url(@lesson)
     click_on "Edit this lesson", match: :first
 
-    fill_in "Lesson name", with: @lesson.lesson_name
+    fill_in "Lesson name", with: @lesson.name
     fill_in "Teacher", with: @lesson.teacher
     fill_in "Time", with: @lesson.time
     click_on "Update Lesson"

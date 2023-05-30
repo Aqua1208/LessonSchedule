@@ -5,8 +5,6 @@ class ParticipantsController < ApplicationController
   def create
     @lesson = Lesson.find(session[:lesson_id])
     user = current_user
-    puts "Lesson ID: #{@lesson.id}"
-    puts "User ID: #{user.id}"
     participant = @lesson.participants.build(user_id: user.id)
     participant.save
     session.delete(:lesson_id)

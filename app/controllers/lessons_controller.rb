@@ -9,6 +9,7 @@ class LessonsController < ApplicationController
   # GET /lessons/1 or /lessons/1.json
   def show
     @participants = Participant.all
+    @users = User.all
   end
 
   # GET /lessons/new
@@ -69,6 +70,6 @@ class LessonsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lesson_params
-      params.require(:lesson).permit(:lesson_name, :time, :teacher)
+      params.require(:lesson).permit(:name, :time, :teacher)
     end
 end

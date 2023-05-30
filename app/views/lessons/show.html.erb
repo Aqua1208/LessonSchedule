@@ -1,5 +1,14 @@
 <nav>
-  <h1>Lesson / <%= @lesson.lesson_name %> / <%= @lesson.time.strftime("%m月%d日") %></h1>
+  <% if @lesson.name.present? && @lesson.time.present? %>
+    <!-- 処理A: nameとtimeがともにnilでない場合 -->
+    <h1>Lesson / <%= @lesson.name %> / <%= @lesson.time.strftime("%m月%d日") %></h1>
+  <% elsif @lesson.name.nil? %>
+    <!-- 処理B: nameがnilの場合 -->
+    <h1>Lesson / <%= @lesson.time.strftime("%m月%d日") %></h1>
+  <% else %>
+    <!-- 処理C: timeがnilの場合 -->
+    <h1>Lesson / <%= @lesson.name %></h1>
+  <% end %>
   <%= button_to "SignOut", signout_path, method: :delete %>
 </nav>
 
@@ -17,6 +26,6 @@
 
 <div>
   <% @participants.where(lesson_id: session[:lesson_id]).each do |participant| %>
-    <%= participant.user_id %>
+    <%= @users.find(participant.user_id).name %>
   <% end %>
 </div>
