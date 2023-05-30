@@ -2,7 +2,6 @@
   <h1>Lesson / <%= @lesson.lesson_name %> / <%= @lesson.time.strftime("%m月%d日") %></h1>
   <%= button_to "SignOut", signout_path, method: :delete %>
 </nav>
-<p style="color: green"><%= notice %></p>
 
 <%= render @lesson %>
 
