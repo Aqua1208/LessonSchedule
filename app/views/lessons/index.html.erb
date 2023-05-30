@@ -1,8 +1,10 @@
 <nav>
   <h1>Lessons</h1>
   <div>
+    <% if current_user.admin == true %>
+      <%= button_to "Users", users_path, method: :get %>
+    <% end %>
     <%= button_to "SignOut", signout_path, method: :delete %>
-    <%= button_to "Users", users_path, method: :get %>
   </div>
 </nav>
 

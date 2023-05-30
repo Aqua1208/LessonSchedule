@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
   before_action :require_user, except: [:new, :create]
-  before_action :require_same_user, only: [:edit, :update, :destroy]
+  before_action :require_permit_user, only: [:edit, :update, :destroy]
 
   # GET /users or /users.json
   def index
@@ -10,6 +10,8 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    @participants = Participant.all
+    @lessons = Lesson.all
   end
 
   # GET /users/new
@@ -72,10 +74,12 @@ class UsersController < ApplicationController
       params.require(:user).permit(:name, :password, :password_confirmation, :admin)
     end
 
-    def require_same_user
-      if current_user != @user
-        flash[:alert] = "許可されていない操作です。プロフィールの編集、削除は作成者のみ可能です。"
-        redirect_to @user
+    def require_permit_user
+      if current_user != @user || current_user.admin == true
+        
+        binding.pry
+        
+        redirect_to @user, alert: "許可されていない操作です。"
+      end
     end
-end
 end

@@ -3,7 +3,7 @@
   <%= button_to "SignOut", signout_path, method: :delete %>
 </nav>
 
-<p style="color: green"><%= notice %></p>
+<%= flash[:alert] %>
 
 <%= render @user %>
 
@@ -14,4 +14,12 @@
   <% end %>
 
   <%= link_to "講座一覧へもどる", lessons_path %>
+</div>
+
+<div>
+  <% if current_user == @user || current_user.admin %>
+    <% @participants.where(user_id: session[:user_id]).each do |participant| %>
+      <%= @lessons.find(participant.lesson_id).name %>
+    <% end %>
+  <% end %>
 </div>
