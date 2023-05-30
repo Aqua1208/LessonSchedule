@@ -1,4 +1,7 @@
-<p style="color: green"><%= notice %></p>
+<nav>
+  <h1>Lesson / <%= @lesson.lesson_name %> / <%= @lesson.time.strftime("%m月%d日") %></h1>
+  <%= button_to "SignOut", signout_path, method: :delete %>
+</nav>
 
 <%= render @lesson %>
 
@@ -9,5 +12,11 @@
   <%= form_with model:Participant.new do |f| %>
     <% session[:lesson_id] = params[:id] %>
     <%= f.submit "参加登録", disable_with: 'Submiting...' %>
+  <% end %>
+</div>
+
+<div>
+  <% @participants.where(lesson_id: session[:lesson_id]).each do |participant| %>
+    <%= participant.user_id %>
   <% end %>
 </div>

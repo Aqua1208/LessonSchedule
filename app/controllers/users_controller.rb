@@ -51,6 +51,8 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
+    @user = User.find(params[:id])
+    @user.participants.destroy_all
     @user.destroy
 
     respond_to do |format|
@@ -75,5 +77,12 @@ class UsersController < ApplicationController
         flash[:alert] = "許可されていない操作です。プロフィールの編集、削除は作成者のみ可能です。"
         redirect_to @user
     end
+
+    def require_same_user
+      if current_user != @user
+        flash[:alert] = "許可されていない操作です。プロフィールの編集、削除は作成者のみ可能です。"
+        redirect_to @user
+    end
+end
 end
 end
