@@ -1,10 +1,11 @@
-<h1>ログイン</h1>
+<% content_for :title do %>
+  <h1>Sign in</h1>
+<% end %>
+
 <%= form_for(:session, url: signin_path) do |f| %>
   <%= f.label :name %>
   <%= f.text_field :name %>
   <%= f.label :password %>
   <%= f.password_field :password %>
-  <%= f.submit "Sign in" %>
+  <%= f.submit "Sign in", class: "btn bg-primary" %>
 <% end %>
-
-<%= link_to "Sign up", new_user_path %>

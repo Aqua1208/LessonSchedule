@@ -1,14 +1,12 @@
-<nav>
+<% content_for :title do %>
   <h1>Lessons</h1>
-  <div>
-    <% if current_user.admin == true %>
-      <%= button_to "Users", users_path, method: :get %>
-    <% end %>
-    <%= button_to "SignOut", signout_path, method: :delete %>
-  </div>
-</nav>
+<% end %>
 
-<p style="color: green"><%= notice %></p>
+<% content_for :nav do %>
+  <% if current_user.admin %>
+    <%= button_to "Admin(User)", users_path, method: :get, class: "btn bg-teal" %>
+  <% end %>
+<% end %>
 
 <div id="lessons">
   <% @lessons.each do |lesson| %>
@@ -17,4 +15,4 @@
   <% end %>
 </div>
 
-<%= button_to "新規作成", new_lesson_path, method: :get %>
+<%= button_to "新規作成", new_lesson_path, method: :get, class: "btn bg-teal" %>

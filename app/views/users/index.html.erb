@@ -1,13 +1,10 @@
-<nav class="Admin">
+<% content_for :title do %>
   <h1>Users</h1>
-  <div>
-    <% if current_user.admin %>
-      <%= button_to "Lessons", lessons_path, method: :get %>
-    <% end %>
-    <%= button_to "SignOut", signout_path, method: :delete %>
-  </div>
-</nav>
-<p style="color: green"><%= notice %></p>
+<% end %>
+
+<% content_for :nav do %>
+  <%= button_to "Lessons", lessons_path, method: :get, class: "btn bg-teal" %>
+<% end %>
 
 <div id="users">
   <table>

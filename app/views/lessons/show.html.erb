@@ -1,4 +1,4 @@
-<nav>
+<% content_for :title do %>
   <% if @lesson.name.present? && @lesson.time.present? %>
     <!-- 処理A: nameとtimeがともにnilでない場合 -->
     <h1>Lesson / <%= @lesson.name %> / <%= @lesson.time.strftime("%m月%d日") %></h1>
@@ -9,8 +9,7 @@
     <!-- 処理C: timeがnilの場合 -->
     <h1>Lesson / <%= @lesson.name %></h1>
   <% end %>
-  <%= button_to "SignOut", signout_path, method: :delete %>
-</nav>
+<% end %>
 
 <%= render @lesson %>
 

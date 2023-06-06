@@ -71,14 +71,11 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:user_name, :password, :password_confirmation, :admin)
+      params.require(:user).permit(:name, :password, :password_confirmation, :admin)
     end
 
     def require_permit_user
-      if current_user != @user || current_user.admin == true
-        
-        binding.pry
-        
+      unless current_user == @user || current_user.admin
         redirect_to @user, alert: "許可されていない操作です。"
       end
     end

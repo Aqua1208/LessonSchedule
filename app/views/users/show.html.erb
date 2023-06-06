@@ -1,19 +1,23 @@
-<nav>
+<% content_for :title do %>
   <h1>User / <%= @user.name %></h1>
-  <%= button_to "SignOut", signout_path, method: :delete %>
-</nav>
+<% end %>
 
-<%= flash[:alert] %>
+<% content_for :nav do %>
+  <%= button_to "Lessons", lessons_path, method: :get, class: "btn bg-teal" %>
+  <% if current_user[:admin] %>
+    <%= button_to "Users", lessons_path, method: :get, class: "btn bg-teal" %>
+  <% end %>
+<% end %>
 
 <%= render @user %>
 
 <div>
-  <% if @user == current_user || current_user[:admin] == true %>
-    <%= link_to "編集", edit_user_path(@user), class: "ui inverted green button" %>
-    <%= link_to "削除", @user, class: "ui inverted red button", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+  <% if current_user[:admin] %>
+    <%= button_to "利用者編集", edit_user_path(@user), class: "btn bg-teal" %>
+    <%= button_to "利用者削除", @user, class: "btn bg-teal", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
   <% end %>
 
-  <%= link_to "講座一覧へもどる", lessons_path %>
+  <%= link_to "講座一覧", lessons_path %>
 </div>
 
 <div>

@@ -11,6 +11,23 @@
   </head>
 
   <body>
+    <header>
+      <%= yield :title %>
+      <nav>
+        <%= yield :nav %>
+        <% if current_user.nil? %>
+          <%= button_to "Sign up", new_user_path, method: :get, class: "btn bg-teal" %>
+        <% else %>
+          <%= button_to "Sign out", signout_path, method: :delete, class: "btn bg-teal" %>
+        <% end %>
+      </nav>
+    </header>
+    <% if  %>
+      <table>
+      
+      </table>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
