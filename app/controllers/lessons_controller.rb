@@ -19,7 +19,9 @@ class LessonsController < ApplicationController
 
   # GET /lessons/1/edit
   def edit
-  @lesson_id = params[:id]
+    @lesson_id = params[:id]
+    @participants = Participant.all
+    @users = User.all
   end
 
   # POST /lessons or /lessons.json

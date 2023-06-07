@@ -1,30 +1,67 @@
 <% content_for :title do %>
-  <% if @lesson.name.present? && @lesson.time.present? %>
-    <!-- 処理A: nameとtimeがともにnilでない場合 -->
+  <% if @lesson.time.present? %>
     <h1>Lesson / <%= @lesson.name %> / <%= @lesson.time.strftime("%m月%d日") %></h1>
-  <% elsif @lesson.name.nil? %>
-    <!-- 処理B: nameがnilの場合 -->
-    <h1>Lesson / <%= @lesson.time.strftime("%m月%d日") %></h1>
   <% else %>
-    <!-- 処理C: timeがnilの場合 -->
     <h1>Lesson / <%= @lesson.name %></h1>
   <% end %>
 <% end %>
 
-<%= render @lesson %>
+<table class="table table-hover">
+  <tr>
+    <th>#</th>
+    <td><%= @lesson.id %></td>
+  </tr>
+  <tr>
+    <th>講座</th>
+    <td><%= @lesson.name %></td>
+  </tr>
+  <tr>
+    <th>日程</th>
+    <% if @lesson.time.present? %>
+      <td><%= @lesson.time.strftime("%m月%d日") %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+  </tr>
+  <tr>
+    <th>時刻</th>
+    <% if @lesson.time.present? %>
+      <td><%= @lesson.time.strftime("%H時%M分") %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+  </tr>
+  <tr>
+    <th>講師</th>
+    <td><%= @lesson.teacher %></td>
+  </tr>
+</table>
 
-<div>
-  <%= link_to "Edit this lesson", edit_lesson_path(@lesson) %> |
-  <%= link_to "Back to lessons", lessons_path %>
-
+<div class="flex">
   <%= form_with model:Participant.new do |f| %>
     <% session[:lesson_id] = params[:id] %>
-    <%= f.submit "参加登録", disable_with: 'Submiting...' %>
+    <%= f.submit "参加登録", class: "btn bg-teal" %>
+  <% end %>
+  <% if current_user.admin %>
+    <%= button_to "編集", edit_lesson_path, method: :get, class:"btn bg-teal" %>
   <% end %>
 </div>
 
 <div>
-  <% @participants.where(lesson_id: session[:lesson_id]).each do |participant| %>
+  <% @participants.where(lesson_id: @lesson_id).each do |participant| %>
     <%= @users.find(participant.user_id).name %>
   <% end %>
+</div>
+
+<div>
+    <table class="table table-hover">
+      <tr>
+        <th>参加者</th>
+      </tr>
+      <% @participants.where(lesson_id: @lesson).each do |participant| %>
+        <tr>
+          <td><%= @users.find(participant.user_id).name %></td>
+        </tr>
+      <% end %>
+    </table>
 </div>

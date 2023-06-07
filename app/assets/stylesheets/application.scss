@@ -195,6 +195,14 @@ header {
   justify-content: space-between;
 }
 
+.admin {
+  color: yellow;
+}
+
 nav {
+  display: flex;
+}
+
+.flex {
   display: flex;
 }

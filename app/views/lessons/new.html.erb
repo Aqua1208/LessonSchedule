@@ -1,11 +1,39 @@
-<nav>
-  <h1>New lesson</h1>
-</nav>
+<% content_for :title do %>
+  <h1>New Lesson</h1>
+<% end %>
 
-<%= render "form", lesson: @lesson %>
+<% content_for :nav do %>
+<% end %>
 
-<br>
+<%= form_with(model: @lesson) do |form| %>
+  <% if @lesson.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
 
-<div>
-  <%= link_to "Back to lessons", lessons_path, class: "button" %>
-</div>
+      <ul>
+        <% @lesson.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :time, style: "display: block" %>
+    <%= form.datetime_field :time %>
+  </div>
+
+  <div>
+    <%= form.label :teacher, style: "display: block" %>
+    <%= form.text_field :teacher %>
+  </div>
+
+  <div>
+    <%= form.submit "講座作成", class: "btn bg-teal" %>
+  </div>
+<% end %>

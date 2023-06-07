@@ -14,10 +14,16 @@
     <header>
       <%= yield :title %>
       <nav>
-        <%= yield :nav %>
         <% if current_user.nil? %>
           <%= button_to "Sign up", new_user_path, method: :get, class: "btn bg-teal" %>
         <% else %>
+          <%= button_to "Lessons", lessons_path, method: :get, class: "btn bg-teal" %>
+          <% if current_user.admin %>
+            <%= button_to "Users", users_path, method: :get, class: "btn bg-teal" %>
+          <% else %>
+            <%= button_to "MyPage", user_path(current_user), method: :get, class: "btn bg-teal" %>
+          <% end %>
+          <%= yield :nav %>
           <%= button_to "Sign out", signout_path, method: :delete, class: "btn bg-teal" %>
         <% end %>
       </nav>
