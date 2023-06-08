@@ -6,7 +6,7 @@
   <% end %>
 <% end %>
 
-<table class="table table-hover">
+<table class="table table-striped">
   <tr>
     <th>#</th>
     <td><%= @lesson.id %></td>
@@ -54,16 +54,24 @@
     <%= @users.find(participant.user_id).name %>
   <% end %>
 </div>
-
 <div>
-    <table class="table table-hover">
+  <table class="table table-hover">
+    <tr>
+      <th>参加者</th>
+    </tr>
+    <% @participants.where(lesson_id: @lesson).each do |participant| %>
       <tr>
-        <th>参加者</th>
+        <td><%= @users.find(participant.user_id).name %></td>
+        <% if current_user.admin %>
+          <td><%= participant.participation %></td>
+          <td>
+            <%= form_with url: participation_participants_path do |f| %>
+              <% session[:participant_id] = participant.id %>
+              <%= f.submit class: "btn btn-teal" %>
+            <% end %>
+          </td>
+        <% end %>
       </tr>
-      <% @participants.where(lesson_id: @lesson).each do |participant| %>
-        <tr>
-          <td><%= @users.find(participant.user_id).name %></td>
-        </tr>
-      <% end %>
-    </table>
+    <% end %>
+  </table>
 </div>

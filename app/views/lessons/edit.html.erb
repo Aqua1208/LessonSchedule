@@ -3,9 +3,7 @@
 <% end %>
 
 <%= render "form", lesson: @lesson %>
-
-<div>
   <%= form_with model: @lesson, method: :delete, data: { confirm: '本当に削除しますか？' } do |f| %>
-    <%= f.submit "講座削除", class: 'btn btn-danger', disable_with: 'Submitting...' %>
+    <%= f.submit "Destroy Lesson", class: 'btn btn-danger' %>
   <% end %>
 </div>

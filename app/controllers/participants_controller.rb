@@ -8,12 +8,18 @@ class ParticipantsController < ApplicationController
     participant = @lesson.participants.build(user_id: user.id)
     participant.save
     session.delete(:lesson_id)
-    flash[:notice] = "講座登録が完了しました"
     redirect_to lesson_path(@lesson)
   end
 
   def update
   end
+
+  def participation
+    participation = Participant.find(session[:participant_id])
+    participation.toggle!(:participation)
+    redirect_to request.referer
+  end
+  
 
   def destroy
   end

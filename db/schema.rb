@@ -13,8 +13,9 @@
 ActiveRecord::Schema[7.0].define(version: 2023_05_19_050648) do
   create_table "lessons", force: :cascade do |t|
     t.string "name", null: false
-    t.datetime "time"
+    t.datetime "time", null: false
     t.string "teacher"
+    t.string "category"
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -23,6 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_050648) do
   create_table "participants", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "lesson_id", null: false
+    t.boolean "participation", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["lesson_id"], name: "index_participants_on_lesson_id"
@@ -33,6 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_050648) do
     t.string "name"
     t.string "password_digest"
     t.boolean "admin", default: false
+    t.integer "score", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

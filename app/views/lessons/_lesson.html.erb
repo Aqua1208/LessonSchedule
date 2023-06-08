@@ -1,0 +1,37 @@
+<div id="lessons">
+  <table class="table table-striped">
+    <tr>
+      <th>#</th>
+      <th>Lesson</th>
+      <th>DateTime</th>
+      <th>Teacher</th>
+      <th>Comment</th>
+      <th></th>
+    </tr>
+    <%# @lessons.select{ |prelesson| prelesson.time > Time.now }.each do |lesson| %>
+    <% @lessons.each do |lesson| %>
+      <tr>
+        <td><%= lesson.id %></td>
+        <td><%= lesson.name %></td>
+        <% if lesson.time.present? %>
+          <td><%= lesson.time.strftime("%m/%d %H:%M") %></td>
+        <% else %>
+          <td></td>
+        <% end %>
+        <td><%= lesson.teacher %></td>
+        <td><%= lesson.comment.truncate(20) %></td>
+        <td class="flex">
+          <% if current_user.admin %>
+            <%= link_to "編集", edit_lesson_path(lesson), class: "btn btn-teal" %>
+          <% end %>
+          <%= link_to "詳細", lesson, class: "btn btn-teal" %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</div>
+
+<div class="flex">
+  <% if current_user.admin %>
+    <%= link_to "新規作成", new_lesson_path, class: "btn btn-teal" %>
+  <% end %>

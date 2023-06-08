@@ -1,37 +1,24 @@
-<%= form_with(model: lesson) do |form| %>
-  <% if lesson.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
-
-      <ul>
-        <% lesson.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
+<%= form_with(model: lesson) do |f| %>
   <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+    <%= f.label :name, style: "display: block" %>
+    <%= f.text_field :name %>
   </div>
-
   <div>
-    <%= form.label :time, style: "display: block" %>
-    <%= form.datetime_field :time %>
+    <%= f.label :time, style: "display: block" %>
+    <%= f.datetime_field :time %>
   </div>
-
   <div>
-    <%= form.label :teacher, style: "display: block" %>
-    <%= form.text_field :teacher %>
+    <%= f.label :teacher, style: "display: block" %>
+    <%= f.text_field :teacher %>
   </div>
-
   <div>
-    <%= form.label :comment, style: "display: block" %>
-    <%= form.text_area :comment %>
+    <%= f.label :category, style: "display: block" %>
+    <%= f.text_field :category %>
   </div>
-
   <div>
-    <%= form.submit "講座編集", class: "btn btn-teal" %>
+    <%= f.label :comment, style: "display: block" %>
+    <%= f.text_area :comment %>
   </div>
+  <div class="flex">
+    <%= f.submit class: "btn btn-teal" %>
 <% end %>

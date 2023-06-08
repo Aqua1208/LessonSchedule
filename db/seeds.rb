@@ -1,6 +1,6 @@
 User.create!(
    id: 1,
-   name: 'Alice',
-   password: 'alice'
+   name: 'Admin',
+   password: 'Admin',
    admin: true
 )

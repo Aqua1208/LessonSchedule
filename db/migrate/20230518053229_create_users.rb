@@ -4,6 +4,7 @@ class CreateUsers < ActiveRecord::Migration[7.0]
       t.string :name
       t.string :password_digest
       t.boolean :admin, :default => false
+      t.integer :score, :default => 0
 
       t.timestamps
     end

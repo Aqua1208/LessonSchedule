@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   delete '/signout', to: 'sessions#destroy'
 
   post 'participants/create', as:"create_participants"
+  post 'participants/participation', as:"participation_participants"
 
   get '/lessons/history', to: 'lessons#history'
 
