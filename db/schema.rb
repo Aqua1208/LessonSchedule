@@ -12,9 +12,10 @@
 
 ActiveRecord::Schema[7.0].define(version: 2023_05_19_050648) do
   create_table "lessons", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "time"
     t.string "teacher"
+    t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

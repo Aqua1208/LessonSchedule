@@ -10,10 +10,12 @@
   <tr>
     <th>#</th>
     <td><%= @lesson.id %></td>
+    <th>概要</th>
   </tr>
   <tr>
     <th>講座</th>
     <td><%= @lesson.name %></td>
+    <td rowspan="4"><%= @lesson.comment %></td>
   </tr>
   <tr>
     <th>日程</th>
@@ -40,10 +42,10 @@
 <div class="flex">
   <%= form_with model:Participant.new do |f| %>
     <% session[:lesson_id] = params[:id] %>
-    <%= f.submit "参加登録", class: "btn bg-teal" %>
+    <%= f.submit "参加登録", class: "btn btn-teal" %>
   <% end %>
   <% if current_user.admin %>
-    <%= button_to "編集", edit_lesson_path, method: :get, class:"btn bg-teal" %>
+    <%= button_to "編集", edit_lesson_path, method: :get, class:"btn btn-teal" %>
   <% end %>
 </div>
 

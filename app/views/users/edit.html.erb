@@ -9,10 +9,10 @@
 
 <br>
 
-<div>
-  <%= button_to "詳細", @user, method: :get, class: "btn bg-teal" %>
-  <%= button_to "削除", @user, method: :delete, class: "btn bg-teal", data: { confirm: "Are you sure you want to delete this user?" } %>
+<div class="flex">
+  <%= button_to "詳細", @user, method: :get, class: "btn btn-teal" %>
+  <%= button_to "削除", @user, method: :delete, class: "btn btn-danger", data: { confirm: "Are you sure you want to delete this user?" } %>
   <% if current_user.admin %>
-    <%= button_to "一覧", users_path, method: :get, class: "admin btn bg-teal" %>
+    <%= button_to "一覧", users_path, method: :get, class: "admin btn btn-teal" %>
   <% end %>
 </div>

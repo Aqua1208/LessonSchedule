@@ -1,9 +1,11 @@
 Rails.application.routes.draw do
-  get    '/signin',  to: 'sessions#new'
+  root               to: 'sessions#new'
   post   '/signin',  to: 'sessions#create'
   delete '/signout', to: 'sessions#destroy'
 
   post 'participants/create', as:"create_participants"
+
+  get '/lessons/history', to: 'lessons#history'
 
   resources :users
   resources :lessons

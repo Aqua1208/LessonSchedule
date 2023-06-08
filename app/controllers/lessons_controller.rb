@@ -1,8 +1,12 @@
 class LessonsController < ApplicationController
-  before_action :set_lesson, only: %i[ show edit update destroy ]
+  before_action :set_lesson, only: [ :show, :edit, :update, :destroy ]
 
   # GET /lessons or /lessons.json
   def index
+    @lessons = Lesson.all
+  end
+
+  def history
     @lessons = Lesson.all
   end
 
@@ -72,6 +76,6 @@ class LessonsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lesson_params
-      params.require(:lesson).permit(:name, :time, :teacher)
+      params.require(:lesson).permit(:name, :time, :teacher, :comment)
     end
 end

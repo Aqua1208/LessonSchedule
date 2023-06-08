@@ -30,7 +30,7 @@
     <% end %>
   </table>
   <div class="flex">
-    <%= button_to "編集", edit_user_path(@user), method: :get, class: "btn bg-teal admin" %>
-    <%= button_to "削除", @user, class: "btn bg-teal admin", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+    <%= button_to "編集", edit_user_path(@user), method: :get, class: "btn btn-teal" %>
+    <%= button_to "削除", @user, class: "btn btn-danger", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
   </div>
 <% end %>

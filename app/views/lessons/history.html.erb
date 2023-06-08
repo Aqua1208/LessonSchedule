@@ -1,5 +1,5 @@
 <% content_for :title do %>
-  <h1>Lessons</h1>
+  <h1>Lessons / history</h1>
 <% end %>
 
 <% content_for :nav do %>
@@ -16,8 +16,7 @@
       <th>概要</th>
       <th></th>
     </tr>
-    <% @lessons.select{ |prelesson| prelesson.time > Time.now }.each do |lesson| %>
-    <%# @lessons.each do |lesson| %>
+    <% @lessons.each do |lesson| %>
       <tr>
         <td><%= lesson.id %></td>
         <td><%= lesson.name %></td>
@@ -41,9 +40,6 @@
   </table>
 </div>
 
-<div class="flex">
-  <% if current_user.admin %>
-    <%= button_to "新規作成", new_lesson_path, method: :get, class: "btn btn-teal" %>
-  <% end %>
-  <%= button_to "講座履歴", lessons_history_path, method: :get, class: "btn btn-primary" %>
-</div>
+<% if current_user.admin %>
+  <%= button_to "新規作成", new_lesson_path, method: :get, class: "btn btn-teal" %>
+<% end %>

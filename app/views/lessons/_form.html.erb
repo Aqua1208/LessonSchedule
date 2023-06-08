@@ -27,6 +27,11 @@
   </div>
 
   <div>
-    <%= form.submit "講座編集", class: "btn bg-teal" %>
+    <%= form.label :comment, style: "display: block" %>
+    <%= form.text_area :comment %>
+  </div>
+
+  <div>
+    <%= form.submit "講座編集", class: "btn btn-teal" %>
   </div>
 <% end %>
