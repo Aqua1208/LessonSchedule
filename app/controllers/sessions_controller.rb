@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by(name: params[:session][:name])
     if user && user.authenticate(params[:session][:password])
-      log_in(user)
+      sign_in(user)
       redirect_to lessons_path
     else
       flash.now[:error] = "ログインに失敗しました"
@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    log_out
+    sign_out
     redirect_to signin_path, status: :see_other
   end
 end
