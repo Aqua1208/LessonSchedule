@@ -1,0 +1,9 @@
+<% content_for :title do %>
+  <h1>Editing lesson</h1>
+<% end %>
+
+<%= render "form", lesson: @lesson %>
+  <%= form_with model: @lesson, method: :delete, data: { confirm: '本当に削除しますか？' } do |f| %>
+    <%= f.submit "Destroy Lesson", class: 'btn btn-danger' %>
+  <% end %>
+</div>

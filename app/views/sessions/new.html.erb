@@ -1,0 +1,15 @@
+<% content_for :title do %>
+  <h1>Sign in</h1>
+<% end %>
+
+<%= form_for(:session, url: signin_path) do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :password %>
+    <%= f.password_field :password %>
+  </div>
+  <%= f.submit "Sign in", class: "btn btn-teal" %>
+<% end %>

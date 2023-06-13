@@ -1,10 +1,14 @@
-<h1>Editing user</h1>
+<% content_for :title do %>
+  <h1>Editing User</h1>
+<% end %>
+
+<% content_for :nav do %>
+<% end %>
 
 <%= render "form", user: @user %>
 
 <br>
 
-<div>
-  <%= link_to "Show this user", @user %> |
-  <%= link_to "Back to users", users_path %>
+<div class="flex">
+  <%= button_to "削除", @user, method: :delete, class: "btn btn-danger" %>
 </div>

@@ -1,0 +1,86 @@
+<% content_for :title do %>
+  <% if @lesson.time.present? %>
+    <h1>Lesson / <%= @lesson.name %> / <%= @lesson.time.strftime("%m月%d日") %></h1>
+  <% else %>
+    <h1>Lesson / <%= @lesson.name %></h1>
+  <% end %>
+<% end %>
+
+<table class="table table-striped">
+  <tr>
+    <th>#</th>
+    <td><%= @lesson.id %></td>
+    <th>概要</th>
+  </tr>
+  <tr>
+    <th>講座</th>
+    <td><%= @lesson.name %></td>
+    <td rowspan="4"><%= @lesson.comment %></td>
+  </tr>
+  <tr>
+    <th>日程</th>
+    <% if @lesson.time.present? %>
+      <td><%= @lesson.time.strftime("%m月%d日") %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+  </tr>
+  <tr>
+    <th>時刻</th>
+    <% if @lesson.time.present? %>
+      <td><%= @lesson.time.strftime("%H時%M分") %></td>
+    <% else %>
+      <td></td>
+    <% end %>
+  </tr>
+  <tr>
+    <th>講師</th>
+    <td><%= @lesson.teacher %></td>
+  </tr>
+</table>
+
+<div class="flex">
+  <%= form_with model:Participant.new do |f| %>
+    <% session[:lesson_id] = params[:id] %>
+    <%= f.submit "参加登録", class: "btn btn-teal" %>
+  <% end %>
+  <% if current_user.admin %>
+    <%= button_to "編集", edit_lesson_path, method: :get, class:"btn btn-teal" %>
+  <% end %>
+</div>
+
+<div>
+  <% @participants.where(lesson_id: @lesson_id).each do |participant| %>
+    <%= @users.find(participant.user_id).name %>
+  <% end %>
+</div>
+<div>
+  <table class="table table-hover">
+    <tr>
+      <th>参加者</th>
+      <th>参加有無／予約有無</th>
+    </tr>
+    <% @participants.where(lesson_id: @lesson).each do |participant| %>
+      <tr>
+        <td rowspan="2"><%= @users.find(participant.user_id).name %></td>
+        <% if current_user.admin %>
+          <td><%= participant.participation %></td>
+          <td>
+            <% session[:participant_id] = participant.id %>
+            <%= form_with url: participation_participants_path do |f| %>
+              <%= f.submit class: "btn btn-teal" %>
+            <% end %>
+          </td>
+      </tr>
+      <tr>
+          <td><%= participant.reservation %></td>
+          <td>
+            <%= form_with url: reservation_participants_path do |f| %>
+              <%= f.submit class: "btn btn-teal" %>
+            <% end %>
+          </td>
+      </tr>
+        <% end %>
+    <% end %>
+  </table>
+</div>

@@ -1,10 +1,38 @@
-<p style="color: green"><%= notice %></p>
+<% content_for :title do %>
+  <h1>User / <%= @user.name %></h1>
+<% end %>
+
+<% content_for :nav do %>
+<% end %>
+
+講座参加点：<%= Participant.where(participation: true, reservation:true).count %>
 
 <%= render @user %>
 
-<div>
-  <%= link_to "Edit this user", edit_user_path(@user) %> |
-  <%= link_to "Back to users", users_path %>
-
-  <%= button_to "Destroy this user", @user, method: :delete %>
-</div>
+<% if current_user == @user || current_user.admin %>
+  <table class="table table-striped">
+    <tr>
+      <th>講座</th>
+      <th>日程</th>
+      <th>時刻</th>
+      <th>講師</th>
+    </tr>
+    <% @participants.where(user_id: @user).each do |participant| %>
+      <tr>
+        <td><%= @lessons.find(participant.lesson_id).name %></td>
+        <% if @lessons.find(participant.lesson_id).time.nil? %>
+          <td></td>
+          <td></td>
+        <% else %>
+          <td><%= @lessons.find(participant.lesson_id).time.strftime("%m月%d日") %></td>
+          <td><%= @lessons.find(participant.lesson_id).time.strftime("%H時%M分") %></td>
+        <% end %>
+        <td><%= @lessons.find(participant.lesson_id).teacher %></td>
+      </tr>
+    <% end %>
+  </table>
+  <div class="flex">
+    <%= button_to "編集", edit_user_path(@user), method: :get, class: "btn btn-teal" %>
+    <%= button_to "削除", @user, class: "btn btn-danger", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+  </div>
+<% end %>
