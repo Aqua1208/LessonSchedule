@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   post 'participants/create', as:"create_participants"
   post 'participants/participation', as:"participation_participants"
+  post 'participants/reservation', as:"reservation_participants"
 
   get '/lessons/history', to: 'lessons#history'
 

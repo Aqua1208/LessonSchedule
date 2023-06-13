@@ -19,7 +19,12 @@ class ParticipantsController < ApplicationController
     participation.toggle!(:participation)
     redirect_to request.referer
   end
-  
+
+  def reservation
+    reservation = Participant.find(session[:participant_id])
+    reservation.toggle!(:reservation)
+    redirect_to request.referer
+  end  
 
   def destroy
   end

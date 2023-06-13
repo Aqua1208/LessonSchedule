@@ -5,6 +5,8 @@
 <% content_for :nav do %>
 <% end %>
 
+講座参加点：<%= Participant.where(participation: true, reservation:true).count %>
+
 <%= render @user %>
 
 <% if current_user == @user || current_user.admin %>

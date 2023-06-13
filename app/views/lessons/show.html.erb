@@ -58,20 +58,29 @@
   <table class="table table-hover">
     <tr>
       <th>参加者</th>
+      <th>参加有無／予約有無</th>
     </tr>
     <% @participants.where(lesson_id: @lesson).each do |participant| %>
       <tr>
-        <td><%= @users.find(participant.user_id).name %></td>
+        <td rowspan="2"><%= @users.find(participant.user_id).name %></td>
         <% if current_user.admin %>
           <td><%= participant.participation %></td>
           <td>
+            <% session[:participant_id] = participant.id %>
             <%= form_with url: participation_participants_path do |f| %>
-              <% session[:participant_id] = participant.id %>
               <%= f.submit class: "btn btn-teal" %>
             <% end %>
           </td>
-        <% end %>
       </tr>
+      <tr>
+          <td><%= participant.reservation %></td>
+          <td>
+            <%= form_with url: reservation_participants_path do |f| %>
+              <%= f.submit class: "btn btn-teal" %>
+            <% end %>
+          </td>
+      </tr>
+        <% end %>
     <% end %>
   </table>
 </div>

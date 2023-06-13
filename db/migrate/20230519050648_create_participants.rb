@@ -4,6 +4,7 @@ class CreateParticipants < ActiveRecord::Migration[7.0]
       t.references :user, null: false, foreign_key: true
       t.references :lesson, null: false, foreign_key: true
       t.boolean :participation, default: false
+      t.boolean :reservation, default: false
 
       t.timestamps
     end
