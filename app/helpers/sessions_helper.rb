@@ -7,18 +7,18 @@ module SessionsHelper
     @current_user = User.find_by(id: session[:user_id])
   end
 
-  def logged_in?
+  def signed_in?
     !current_user.nil?
   end
 
-  def login_administrator?
-    unless logged_in? && current_user.admin
+  def signin_administrator?
+    unless signed_in? && current_user.admin
       flash[:alert] = "ログインしてください。"
     end
   end
 
   def require_user
-    if !logged_in?
+    if !signed_in?
       flash[:alert] = "ログインしてください。"
       redirect_to signin_path
     end

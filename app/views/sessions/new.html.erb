@@ -1,6 +1,9 @@
 <% content_for :title do %>
   <h1>Sign in</h1>
 <% end %>
+<% content_for :nav do %>
+
+<% end %>
 
 <%= form_for(:session, url: signin_path) do |f| %>
   <div>
@@ -11,5 +14,6 @@
     <%= f.label :password %>
     <%= f.password_field :password %>
   </div>
-  <%= f.submit "Sign in", class: "btn btn-teal" %>
+  <%= f.submit "サインイン", class: "btn btn-teal" %>
+  <%= link_to "サインアップ", new_user_path, class: "btn btn-teal" %>
 <% end %>
