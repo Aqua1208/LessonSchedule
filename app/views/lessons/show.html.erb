@@ -40,12 +40,16 @@
 </table>
 
 <div class="flex">
-  <%= form_with model:Participant.new do |f| %>
-    <% session[:lesson_id] = params[:id] %>
-    <%= f.submit "参加登録", class: "btn btn-teal" %>
+  <% session[:lesson_id] = params[:id] %>
+  <% if Participant.find_by(user_id: current_user.id ,lesson_id: session[:lesson_id]).nil? %>
+    <%= form_with model:Participant.new do |f| %>
+      <%= f.submit "参加登録", class: "btn btn-teal" %>
+    <% end %>
+  <% else %>
+    <%= button_to '登録解除', destroy_participants_path, method: :delete, class: 'btn btn-warning' %>
   <% end %>
   <% if current_user.admin %>
-    <%= button_to "編集", edit_lesson_path, method: :get, class:"btn btn-teal" %>
+    <%= button_to "講座編集", edit_lesson_path, method: :get, class:"btn btn-teal" %>
   <% end %>
 </div>
 
@@ -58,29 +62,35 @@
   <table class="table table-hover">
     <tr>
       <th>参加者</th>
-      <th>参加有無／予約有無</th>
     </tr>
     <% @participants.where(lesson_id: @lesson).each do |participant| %>
       <tr>
-        <td rowspan="2"><%= @users.find(participant.user_id).name %></td>
-        <% if current_user.admin %>
-          <td><%= participant.participation %></td>
-          <td>
-            <% session[:participant_id] = participant.id %>
-            <%= form_with url: participation_participants_path do |f| %>
-              <%= f.submit class: "btn btn-teal" %>
-            <% end %>
-          </td>
+        <td rowspan="1"><%= @users.find(participant.user_id).name %></td>
+          <%
+=begin%>
+ <% if current_user.admin %>
+              <td><%= participant.participation %></td>
+              <td>
+                <% session[:participant] = participant %>
+                <%= form_with url: participation_participants_path do |f| %>
+                  <%= f.submit "予約確認", class: "btn btn-teal" %>
+                <% end %>
+              </td>
+          <% end %>
       </tr>
       <tr>
-          <td><%= participant.reservation %></td>
+        <% if current_user.admin %>
+        <td><%= participant.reservation %></td>
           <td>
+            <% session[:participant] = participant %>
             <%= form_with url: reservation_participants_path do |f| %>
-              <%= f.submit class: "btn btn-teal" %>
+              <%= f.submit "出席",  class: "btn btn-teal" %>
             <% end %>
           </td>
+        <% end %> 
+<%
+=end%>
       </tr>
-        <% end %>
     <% end %>
   </table>
 </div>

@@ -76,6 +76,6 @@ class LessonsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lesson_params
-      params.require(:lesson).permit(:name, :time, :teacher, :comment)
+      params.require(:lesson).permit(:name, :time, :teacher, :category, :comment)
     end
 end
