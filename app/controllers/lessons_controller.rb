@@ -1,19 +1,34 @@
 class LessonsController < ApplicationController
   before_action :set_lesson, only: [ :show, :edit, :update, :destroy ]
 
-  # GET /lessons or /lessons.json
+# Userモデルの全レコードを取得
+  def users
+    User.all
+  end
+
+# Lessonモデルの全レコードを取得
+  def lessons
+    Lesson.all
+  end
+
+# Lessonモデルからパラメータに保持されているidのレコードを探す
+  def lesson
+    Lesson.find(params[:id])
+  end
+
+# Participantモデルの全レコードを取得
+  def participants
+    Participant.all
+  end
+
   def index
-    @lessons = Lesson.all
   end
 
   def history
-    @lessons = Lesson.all
   end
 
   # GET /lessons/1 or /lessons/1.json
   def show
-    @participants = Participant.all
-    @users = User.all
   end
 
   # GET /lessons/new
@@ -24,8 +39,6 @@ class LessonsController < ApplicationController
   # GET /lessons/1/edit
   def edit
     @lesson_id = params[:id]
-    @participants = Participant.all
-    @users = User.all
   end
 
   # POST /lessons or /lessons.json

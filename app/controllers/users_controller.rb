@@ -3,15 +3,28 @@ class UsersController < ApplicationController
   before_action :require_user, except: [:new, :create]
   before_action :require_permit_user, only: [:edit, :update, :destroy]
 
+  def users
+    User.all
+  end
+
+  def user
+    User.find(params[:id])
+  end
+
+  def lessons
+    Lesson.all
+  end
+
+  def participants
+    Participant.all
+  end
+
   # GET /users or /users.json
   def index
-    @users = User.all
   end
 
   # GET /users/1 or /users/1.json
   def show
-    @participants = Participant.all
-    @lessons = Lesson.all
   end
 
   # GET /users/new
@@ -53,9 +66,8 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    @user = User.find(params[:id])
-    @user.participants.destroy_all
-    @user.destroy
+    controller.user.participants.destroy_all
+    controller.user.destroy
 
     respond_to do |format|
       format.html { redirect_to users_url, notice: "User was successfully destroyed." }
@@ -66,7 +78,7 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = User.find(params[:id])
+      @user = controller.user
     end
 
     # Only allow a list of trusted parameters through.

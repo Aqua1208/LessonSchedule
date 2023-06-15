@@ -8,7 +8,7 @@
       <th></th>
     </tr>
     <%# @lessons.select{ |prelesson| prelesson.time > Time.now }.each do |lesson| %>
-    <% @lessons.each do |lesson| %>
+    <% controller.lessons.each do |lesson| %>
       <tr>
         <td><%= lesson.id %></td>
         <% if lesson.time.present? %>
@@ -16,7 +16,7 @@
         <% else %>
           <td></td>
         <% end %>
-        <td><%= lesson.name %></td>
+        <td><%= link_to lesson.name, lesson %></td>
         <td><%= lesson.teacher %></td>
         <td class="flex">
           <% if signed_in? %>
@@ -25,7 +25,7 @@
             <% end %>
             <%= link_to "講座詳細", lesson, class: "btn btn-teal" %>
           <% else %>
-            <%= link_to "Sign in", signin_path, class: "btn btn-teal" %>
+            <%= link_to "サインインしてください", signin_path, class: "btn btn-teal" %>
           <% end %>
         </td>
       </tr>
