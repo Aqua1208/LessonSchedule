@@ -14,18 +14,17 @@
       <th>利用者名</th>
       <th></th>
     </tr>
-    <% controller.users.each do |user| %>
+    <% user_all.each do |user| %>
       <tr>
         <td><%= user.id %></td>
-        <td><%= user.name %></td>
+        <td><%= link_to user.name, user %></td>
         <td class="flex">
           <% session[:change_signin] = user.id %>
-          <%= link_to "詳細", user, class: "btn btn-teal" %>
-          <%= button_to "サインイン", change_session_path, class: "btn btn-teal" %>
+          <%= link_to "ユーザー詳細", user, class: "btn btn-success" %>
         </td>
       </tr>
     <% end %>
   </table>
 </div>
 
-<%= link_to "New user", new_user_path, class: "btn btn-teal" %>
+<%= link_to "ユーザー新規作成", new_user_path, class: "btn btn-success" %>

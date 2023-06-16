@@ -13,16 +13,6 @@ class SessionsController < ApplicationController
     end
   end
 
-  def change
-    if current_user.admin 
-      sign_out
-      user = User.find(session[:change_signin])      
-      sign_in(user)
-      session.delete(:change_signin)
-      redirect_to user_path(user)
-    end
-  end
-
   def destroy
     sign_out
     redirect_to signin_path, status: :see_other

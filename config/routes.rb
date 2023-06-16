@@ -14,4 +14,5 @@ Rails.application.routes.draw do
   resources :users
   resources :lessons
   resources :participants, except: [:show, :destroy]
+  resources :teachers
 end

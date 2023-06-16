@@ -1,182 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-/*------------------------------------
-- Color teal Start
-------------------------------------*/
-
-$teal_t1: #20c997;
-$teal_t2: #189d75;
-$teal_t3: #98eed5;
-$teal_t4: #aef2de;
-$teal_t5: #0f5f47;
-$teal_t6: #168f6c;
-$teal_t7: #1baa7f;
-$teal_t8: #083326;
-$teal_t9: #c0f4e5;
-
-$teal_shadow: rgba(32, 201, 151, 0.5);
-$teal_text_color_dark_bright: #212529;
-
-
-.alert-teal {
-  color: $teal_t5;
-  background-color: $teal_t9;
-  border-color: $teal_t4;
-}
-
-.alert-teal hr {
-  border-top-color: $teal_t3;
-}
-
-.alert-teal .alert-link {
-  color: $teal_t8;
-}
-
-.badge-teal {
-  color: $teal_text_color_dark_bright;
-  background-color: $teal_t1;
-}
-
-.badge-teal[href]:hover,
-.badge-teal[href]:focus {
-  color: $teal_text_color_dark_bright;
-  background-color: $teal_t2;
-}
-
-.bg-teal {
-  background-color: $teal_t1 !important;
-}
-
-a.bg-teal:hover,
-a.bg-teal:focus,
-button.bg-teal:hover,
-button.bg-teal:focus {
-  background-color: $teal_t2 !important;
-}
-
-.border-teal {
-  border-color: $teal_t1 !important;
-}
-
-.btn-teal {
-  color: $teal_text_color_dark_bright;
-  background-color: $teal_t1;
-  border-color: $teal_t1;
-}
-
-.btn-teal:hover {
-  color: $teal_text_color_dark_bright;
-  background-color: $teal_t7;
-  border-color: $teal_t2;
-}
-
-.btn-teal:focus,
-.btn-teal.focus {
-  box-shadow: 0 0 0 0.2rem $teal_shadow;
-}
-
-.btn-teal.disabled,
-.btn-teal:disabled {
-  color: $teal_text_color_dark_bright;
-  background-color: $teal_t1;
-  border-color: $teal_t1;
-}
-
-.btn-teal:not(:disabled):not(.disabled):active,
-.btn-teal:not(:disabled):not(.disabled).active,
-.show>.btn-teal.dropdown-toggle {
-  color: $teal_text_color_dark_bright;
-  background-color: $teal_t2;
-  border-color: $teal_t6;
-}
-
-.btn-teal:not(:disabled):not(.disabled):active:focus,
-.btn-teal:not(:disabled):not(.disabled).active:focus,
-.show>.btn-teal.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem $teal_shadow;
-}
-
-.btn-outline-teal {
-  color: $teal_t1;
-  background-color: transparent;
-  border-color: $teal_t1;
-}
-
-.btn-outline-teal:hover {
-  color: $teal_text_color_dark_bright;
-  background-color: $teal_t1;
-  border-color: $teal_t1;
-}
-
-.btn-outline-teal:focus,
-.btn-outline-teal.focus {
-  box-shadow: 0 0 0 0.2rem $teal_shadow;
-}
-
-.btn-outline-teal.disabled,
-.btn-outline-teal:disabled {
-  color: $teal_t1;
-  background-color: transparent;
-}
-
-.btn-outline-teal:not(:disabled):not(.disabled):active,
-.btn-outline-teal:not(:disabled):not(.disabled).active,
-.show>.btn-outline-teal.dropdown-toggle {
-  color: $teal_text_color_dark_bright;
-  background-color: $teal_t1;
-  border-color: $teal_t1;
-}
-
-.btn-outline-teal:not(:disabled):not(.disabled):active:focus,
-.btn-outline-teal:not(:disabled):not(.disabled).active:focus,
-.show>.btn-outline-teal.dropdown-toggle:focus {
-  box-shadow: 0 0 0 0.2rem $teal_shadow;
-}
-
-.list-group-item-teal {
-  color: $teal_t5;
-  background-color: $teal_t4;
-}
-
-.list-group-item-teal.list-group-item-action:hover,
-.list-group-item-teal.list-group-item-action:focus {
-  color: $teal_t5;
-  background-color: $teal_t3;
-}
-
-.list-group-item-teal.list-group-item-action.active {
-  color: $teal_text_color_dark_bright;
-  background-color: $teal_t5;
-  border-color: $teal_t5;
-}
-
-.table-teal,
-.table-teal>th,
-.table-teal>td {
-  background-color: $teal_t4;
-}
-
-.table-hover .table-teal:hover {
-  background-color: $teal_t3;
-}
-
-.table-hover .table-teal:hover>td,
-.table-hover .table-teal:hover>th {
-  background-color: $teal_t3;
-}
-
-.text-teal {
-  color: $teal_t1 !important;
-}
-
-a.text-teal:hover,
-a.text-teal:focus {
-  color: $teal_t2 !important;
-}
-
-/* Color teal End */
-
 body,
 h1 {
   margin: 0;
@@ -188,7 +12,7 @@ h1 {
 
 header {
   align-items: center;
-  background: $teal_t1;
+  background: #5cb85c;
   color: #ffffff;
   display: flex;
   height: 10vh;
@@ -202,8 +26,16 @@ header {
 
 nav {
   display: flex;
+
+  .btn {
+    border: none;
+  }
 }
 
 .flex {
   display: flex;
+}
+
+.comment {
+  width: 60%;
 }

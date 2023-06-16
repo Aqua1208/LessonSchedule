@@ -1,0 +1,14 @@
+<table class="table table-striped">
+  <tr>
+    <th>#</th>
+    <th>氏名</th>
+    <th></th>
+  </tr>
+  <% teacher_all.each do |teacher| %>
+    <tr>
+      <td><%= teacher.id %></td>
+      <td><%= link_to teacher.name, teacher %></td>
+      <td></td>
+    </tr>
+  <% end %>
+</table>

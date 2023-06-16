@@ -1,65 +1,67 @@
 <% content_for :title do %>
-  <% if controller.lesson.time.present? %>
-    <h1>Lesson / <%= controller.lesson.name %> / <%= @lesson.time.strftime("%m月%d日") %></h1>
+  <% if lesson_find_id.time.present? %>
+    <h1>Lesson / <%= lesson_find_id.name %> / <%= @lesson.time.strftime("%m月%d日") %></h1>
   <% else %>
-    <h1>Lesson / <%= controller.lesson.name %></h1>
+    <h1>Lesson / <%= lesson_find_id.name %></h1>
   <% end %>
 <% end %>
 
 <table class="table table-striped">
   <tr>
     <th>#</th>
-    <td><%= controller.lesson.id %></td>
-    <th>概要</th>
+    <td><%= lesson_find_id.id %></td>
+    <th class="comment">概要</th>
   </tr>
   <tr>
     <th>講座</th>
-    <td><%= controller.lesson.name %></td>
-    <td rowspan="4"><%= controller.lesson.comment %></td>
+    <td><%= lesson_find_id.name %></td>
+    <td rowspan="4"><%= lesson_find_id.comment %></td>
   </tr>
   <tr>
     <th>日程</th>
-    <% if controller.lesson.time.present? %>
-      <td><%= controller.lesson.time.strftime("%m月%d日") %></td>
+    <% if lesson_find_id.time.present? %>
+      <td><%= lesson_find_id.time.strftime("%m月%d日") %></td>
     <% else %>
       <td></td>
     <% end %>
   </tr>
   <tr>
     <th>時刻</th>
-    <% if @lesson.time.present? %>
-      <td><%= @lesson.time.strftime("%H時%M分") %></td>
+    <% if lesson_find_id.time.present? %>
+      <td><%= lesson_find_id.time.strftime("%H時%M分") %></td>
     <% else %>
       <td></td>
     <% end %>
   </tr>
   <tr>
     <th>講師</th>
-    <td><%= controller.lesson.teacher %></td>
+    <td><%= lesson_find_id.teacher.name %></td>
   </tr>
 </table>
 
 <div class="flex">
-  <% session[:lesson_id] = params[:id] %>
-  <% if current_user.admin %>
-    <%= link_to "講座編集", edit_lesson_path, class:"btn btn-teal" %>
-  <% end %>
-  <% if Participant.find_by(user_id: current_user.id ,lesson_id: params[:id]).nil? %>
-    <%= form_with model:Participant.new do |f| %>
-      <%= f.submit "参加登録", class: "btn btn-teal", data: { turbo_confirm: "講座予約が成功しました。" } %>
+  <% if signed_in? %>
+    <% if current_admin? %>
+      <%= link_to "講座編集", edit_lesson_path, class:"btn btn-success" %>
     <% end %>
-  <% else %>
-    <%= button_to '登録解除', destroy_participants_path, method: :delete, class: 'btn btn-warning', data: { turbo_confirm: "講座予約を解除しました。"} %>
+    <% if Participant.find_by(user_id: current_user.id ,lesson_id: params[:id]).nil? %>
+      <%= form_with model: Participant.new do |f| %>
+        <%= f.submit "参加登録", class: "btn btn-success", data: { turbo_confirm: "講座予約が成功しました。" } %>
+      <% end %>
+    <% else %>
+      <%= button_to '登録解除', destroy_participants_path, method: :delete, class: 'btn btn-warning', data: { turbo_confirm: "講座予約を解除しました。"} %>
+    <% end %>
   <% end %>
+  <%= link_to "戻る", lessons_path, class: "btn btn-primary" %>
 </div>
 <div>
   <table class="table table-hover">
     <tr>
       <th>参加者</th>
     </tr>
-    <% controller.participants.where(lesson_id: @lesson).each do |participant| %>
+    <% participant_all.where(lesson_id: lesson_find_id).each do |participant| %>
       <tr>
-        <td rowspan="1"><%= controller.users.find(participant.user_id).name %></td>
+        <td rowspan="1"><%= user_all.find(participant.user_id).name %></td>
           <%
 =begin%>
  <% if current_user.admin %>
@@ -67,7 +69,7 @@
               <td>
                 <% session[:participant] = participant %>
                 <%= form_with url: participation_participants_path do |f| %>
-                  <%= f.submit "予約確認", class: "btn btn-teal" %>
+                  <%= f.submit "予約確認", class: "btn btn-success" %>
                 <% end %>
               </td>
           <% end %>
@@ -78,7 +80,7 @@
           <td>
             <% session[:participant] = participant %>
             <%= form_with url: reservation_participants_path do |f| %>
-              <%= f.submit "出席",  class: "btn btn-teal" %>
+              <%= f.submit "出席",  class: "btn btn-success" %>
             <% end %>
           </td>
         <% end %> 

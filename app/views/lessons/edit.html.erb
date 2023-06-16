@@ -2,8 +2,8 @@
   <h1>Editing lesson</h1>
 <% end %>
 
-<%= render "form", lesson: lesson %>
-  <%= form_with model: lesson, method: :delete, data: { confirm: '本当に削除しますか？' } do |f| %>
+<%= render "form", lesson: lesson_find_id %>
+  <%= form_with model: lesson_find_id, method: :delete, data: { confirm: '本当に削除しますか？' } do |f| %>
     <%= f.submit "講座削除", class: 'btn btn-danger' %>
   <% end %>
 </div>

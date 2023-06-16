@@ -14,17 +14,17 @@
     <header>
       <%= yield :title %>
       <nav>
-        <%= link_to "講座一覧", lessons_path, class: "btn btn-teal" %>
+        <%= link_to "講座一覧", lessons_path, class: "btn btn-success" %>
         <% if signed_in? %>
-          <% if current_user.admin %>
-            <%= link_to "ユーザー一覧", users_path, class: "btn btn-teal" %>
+          <% if current_admin? %>
+            <%= link_to "ユーザー一覧", users_path, class: "btn btn-success" %>
           <% else %>
-            <%= link_to "マイページ", user_path(current_user), class: "btn btn-teal" %>
+            <%= link_to "マイページ", user_path(current_user), class: "btn btn-success" %>
           <% end %>
           <%= yield :nav %>
-          <%= button_to "サインアウト", signout_path, method: :delete, class: "btn btn-teal" %>
+          <%= button_to "サインアウト", signout_path, method: :delete, class: "btn btn-success" %>
         <% else %>
-          <%= link_to "サインイン", signin_path, class: "btn btn-teal" %>
+          <%= link_to "サインイン", signin_path, class: "btn btn-success" %>
         <% end %>
       </nav>
     </header>

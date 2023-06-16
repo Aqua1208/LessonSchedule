@@ -8,8 +8,8 @@
     <%= f.datetime_field :time %>
   </div>
   <div>
-    <%= f.label :teacher, style: "display: block" %>
-    <%= f.text_field :teacher %>
+    <%= f.label :teacher_id, style: "display: block" %>
+    <%= f.collection_select :teacher_id, Teacher.all, :id, :name, prompt: true %>
   </div>
   <div>
     <%= f.label :category, style: "display: block" %>
@@ -20,5 +20,5 @@
     <%= f.text_area :comment %>
   </div>
   <div class="flex">
-    <%= f.submit "講座更新", class: "btn btn-teal" %>
+    <%= f.submit "講座作成", class: "btn btn-success" %>
 <% end %>

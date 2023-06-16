@@ -1,26 +1,6 @@
 class LessonsController < ApplicationController
   before_action :set_lesson, only: [ :show, :edit, :update, :destroy ]
 
-# Userモデルの全レコードを取得
-  def users
-    User.all
-  end
-
-# Lessonモデルの全レコードを取得
-  def lessons
-    Lesson.all
-  end
-
-# Lessonモデルからパラメータに保持されているidのレコードを探す
-  def lesson
-    Lesson.find(params[:id])
-  end
-
-# Participantモデルの全レコードを取得
-  def participants
-    Participant.all
-  end
-
   def index
   end
 
@@ -29,6 +9,7 @@ class LessonsController < ApplicationController
 
   # GET /lessons/1 or /lessons/1.json
   def show
+    session[:lesson_id] = params[:id]
   end
 
   # GET /lessons/new
@@ -44,6 +25,7 @@ class LessonsController < ApplicationController
   # POST /lessons or /lessons.json
   def create
     @lesson = Lesson.new(lesson_params)
+    @lesson.teacher_id = params[:lesson][:teacher_id]
 
     respond_to do |format|
       if @lesson.save
@@ -89,6 +71,6 @@ class LessonsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lesson_params
-      params.require(:lesson).permit(:name, :time, :teacher, :category, :comment)
+      params.require(:lesson).permit(:name, :time, :category, :comment)
     end
 end
