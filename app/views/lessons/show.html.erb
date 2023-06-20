@@ -46,10 +46,10 @@
     <% end %>
     <% if Participant.find_by(user_id: current_user.id ,lesson_id: params[:id]).nil? %>
       <%= form_with model: Participant.new do |f| %>
-        <%= f.submit "参加登録", class: "btn btn-success", data: { turbo_confirm: "講座予約が成功しました。" } %>
+        <%= f.submit "参加登録", class: "btn btn-success" %>
       <% end %>
     <% else %>
-      <%= button_to '登録解除', destroy_participants_path, method: :delete, class: 'btn btn-warning', data: { turbo_confirm: "講座予約を解除しました。"} %>
+      <%= button_to '登録解除', destroy_participants_path, method: :delete, class: 'btn btn-warning' %>
     <% end %>
   <% end %>
   <%= link_to "戻る", lessons_path, class: "btn btn-primary" %>

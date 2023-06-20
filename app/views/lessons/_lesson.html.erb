@@ -22,6 +22,18 @@
           <% if signed_in? %>
             <% if current_admin? %>
               <%= link_to "講座編集", edit_lesson_path(lesson), class: "btn btn-success" %>
+            <%
+=begin%>
+ <% else %>
+              <% if Participant.find_by(user_id: current_user.id ,lesson_id: lesson.id).nil? %>
+                <%= form_with model: Participant.new do |f| %>
+                  <%= f.submit "参加登録", class: "btn btn-success" %>
+                <% end %>
+              <% else %>
+                <%= button_to '登録解除', destroy_participants_path, method: :delete, class: 'btn btn-warning' %>
+              <% end %> 
+<%
+=end%>
             <% end %>
             <%= link_to "講座詳細", lesson, class: "btn btn-success" %>
           <% else %>

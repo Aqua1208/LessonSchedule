@@ -8,7 +8,7 @@ class ParticipantsController < ApplicationController
     participant = lesson.participants.build(user_id: user.id, lesson_id: lesson.id)
     participant.save
     session.delete(:lesson_id)
-    redirect_to lesson_path(lesson.id)
+    redirect_to lessons_path
   end
 
   # def participation
@@ -29,12 +29,11 @@ class ParticipantsController < ApplicationController
   # end  
 
   def destroy
-    user_id = current_user.id
-    lesson_id = session[:lesson_id]
-    participant = Participant.find_by(user_id: user_id, lesson_id: lesson_id)
+    user = current_user
+    lesson = Lesson.find(session[:lesson_id])
+    participant = Participant.find_by(user_id: user.id, lesson_id: lesson.id)
     participant.destroy
     session.delete(:lesson_id)
-    flash[:alert] = '参加登録を解除しました。'
-    redirect_to lesson_path(lesson_id)
+    redirect_to lessons_path
   end
 end
