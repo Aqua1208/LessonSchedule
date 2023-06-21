@@ -10,15 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_19_050648) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_16_025427) do
   create_table "lessons", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "time", null: false
-    t.string "teacher"
+    t.integer "teacher_id"
     t.string "category"
     t.text "comment"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["teacher_id"], name: "index_lessons_on_teacher_id"
   end
 
   create_table "participants", force: :cascade do |t|
@@ -32,6 +33,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_050648) do
     t.index ["user_id"], name: "index_participants_on_user_id"
   end
 
+  create_table "teachers", force: :cascade do |t|
+    t.string "name"
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "password_digest"
@@ -41,6 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_19_050648) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "lessons", "teachers"
   add_foreign_key "participants", "lessons"
   add_foreign_key "participants", "users"
 end

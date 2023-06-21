@@ -5,11 +5,9 @@
 <% content_for :nav do %>
 <% end %>
 
-講座参加点：<%= Participant.where(participation: true, reservation:true).count %>
-
 <%= render @user %>
 
-<% if current_user == @user || current_user.admin %>
+<% if current_user == @user || current_admin? %>
   <table class="table table-striped">
     <tr>
       <th>講座</th>
@@ -17,22 +15,23 @@
       <th>時刻</th>
       <th>講師</th>
     </tr>
-    <% @participants.where(user_id: @user).each do |participant| %>
+    <% participant_all.where(user_id: @user).each do |participant| %>
+      <% lesson = lesson_all.find(participant.lesson_id) %>
       <tr>
-        <td><%= @lessons.find(participant.lesson_id).name %></td>
-        <% if @lessons.find(participant.lesson_id).time.nil? %>
+        <td><%= link_to lesson.name, lesson %></td>
+        <% if lesson.time.nil? %>
           <td></td>
           <td></td>
         <% else %>
-          <td><%= @lessons.find(participant.lesson_id).time.strftime("%m月%d日") %></td>
-          <td><%= @lessons.find(participant.lesson_id).time.strftime("%H時%M分") %></td>
+          <td><%= lesson.time.strftime("%m月%d日") %></td>
+          <td><%= lesson.time.strftime("%H時%M分") %></td>
         <% end %>
-        <td><%= @lessons.find(participant.lesson_id).teacher %></td>
+        <td><%= teacher_all.find(lesson.teacher_id).name %></td>
       </tr>
     <% end %>
   </table>
   <div class="flex">
-    <%= button_to "編集", edit_user_path(@user), method: :get, class: "btn btn-teal" %>
+    <%= link_to "編集", edit_user_path(@user), class: "btn btn-success" %>
     <%= button_to "削除", @user, class: "btn btn-danger", data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
   </div>
 <% end %>

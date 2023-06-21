@@ -3,7 +3,7 @@ class CreateLessons < ActiveRecord::Migration[7.0]
     create_table :lessons, null: false do |t|
       t.string :name, null: false
       t.datetime :time, null: false
-      t.string :teacher
+      t.references :teacher, foreign_key: true
       t.string :category
       t.text :comment
 

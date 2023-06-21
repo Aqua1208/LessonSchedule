@@ -1,0 +1,10 @@
+<% content_for :title do %>
+  <h1>Editting Teacher</h1>
+<% end %>
+
+<% content_for :nav do %>
+<% end %>
+
+<%= render "form", teacher: @teacher %>
+  <%= link_to "戻る", @teacher, class: "btn btn-primary" %>
+</div>

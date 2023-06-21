@@ -1,0 +1,25 @@
+<% content_for :title do %>
+  <h1>Teacher</h1>
+<% end %>
+
+<% content_for :nav do %>
+<% end %>
+
+<table class="table table-striped">
+  <tr>
+    <th>#</th>
+    <td><%= teacher_find_id.id %></td>
+    <th class="comment">概要</th>
+  </tr>
+  <tr>
+    <th>氏名</th>
+    <td><%= teacher_find_id.name %></td>
+    <td rowspan="2"><%= teacher_find_id.comment %></td>
+  </tr>
+</table>
+
+<div class="flex">
+  <%= link_to "編集", edit_teacher_path(@teacher), class:"btn btn-success" %>
+  <%= button_to "削除", @teacher, method: :delete, class:"btn btn-danger" %>
+  <%= link_to "戻る", teachers_path, class:"btn btn-primary" %>
+</div>

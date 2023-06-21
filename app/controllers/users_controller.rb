@@ -5,13 +5,10 @@ class UsersController < ApplicationController
 
   # GET /users or /users.json
   def index
-    @users = User.all
   end
 
   # GET /users/1 or /users/1.json
   def show
-    @participants = Participant.all
-    @lessons = Lesson.all
   end
 
   # GET /users/new
@@ -53,9 +50,8 @@ class UsersController < ApplicationController
 
   # DELETE /users/1 or /users/1.json
   def destroy
-    @user = User.find(params[:id])
-    @user.participants.destroy_all
-    @user.destroy
+    user_find_id.participants.destroy_all
+    user_find_id.destroy
 
     respond_to do |format|
       format.html { redirect_to users_url, notice: "User was successfully destroyed." }
@@ -75,7 +71,7 @@ class UsersController < ApplicationController
     end
 
     def require_permit_user
-      unless current_user == @user || current_user.admin
+      unless current_user == @user || current_admin?
         redirect_to @user, alert: "許可されていない操作です。"
       end
     end

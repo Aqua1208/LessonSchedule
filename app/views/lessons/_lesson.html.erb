@@ -7,8 +7,8 @@
       <th>Teacher</th>
       <th></th>
     </tr>
-    <%# @lessons.select{ |prelesson| prelesson.time > Time.now }.each do |lesson| %>
-    <% @lessons.each do |lesson| %>
+    <% lesson_all.select{ |prelesson| prelesson.time > Time.now }.each do |lesson| %>
+    <%# lesson_all.each do |lesson| %>
       <tr>
         <td><%= lesson.id %></td>
         <% if lesson.time.present? %>
@@ -16,16 +16,28 @@
         <% else %>
           <td></td>
         <% end %>
-        <td><%= lesson.name %></td>
-        <td><%= lesson.teacher %></td>
+        <td><%= link_to lesson.name, lesson %></td>
+        <td><%= link_to lesson.teacher.name, teacher_path(lesson.teacher) %></td>
         <td class="flex">
           <% if signed_in? %>
-            <% if current_user.admin %>
-              <%= link_to "講座編集", edit_lesson_path(lesson), class: "btn btn-teal" %>
+            <% if current_admin? %>
+              <%= link_to "講座編集", edit_lesson_path(lesson), class: "btn btn-success" %>
+            <%
+=begin%>
+ <% else %>
+              <% if Participant.find_by(user_id: current_user.id ,lesson_id: lesson.id).nil? %>
+                <%= form_with model: Participant.new do |f| %>
+                  <%= f.submit "参加登録", class: "btn btn-success" %>
+                <% end %>
+              <% else %>
+                <%= button_to '登録解除', destroy_participants_path, method: :delete, class: 'btn btn-warning' %>
+              <% end %> 
+<%
+=end%>
             <% end %>
-            <%= link_to "講座詳細", lesson, class: "btn btn-teal" %>
+            <%= link_to "講座詳細", lesson, class: "btn btn-success" %>
           <% else %>
-            <%= link_to "Sign in", signin_path, class: "btn btn-teal" %>
+            <%= link_to "サインインしてください", signin_path, class: "btn btn-success" %>
           <% end %>
         </td>
       </tr>
@@ -34,8 +46,6 @@
 </div>
 
 <div class="flex">
-  <% if signed_in? %>
-    <% if current_user.admin %>
-      <%= link_to "新規作成", new_lesson_path, class: "btn btn-teal" %>
-    <% end %>
+  <% if current_admin? %>
+    <%= link_to "講座新規作成", new_lesson_path, class: "btn btn-success" %>
   <% end %>
