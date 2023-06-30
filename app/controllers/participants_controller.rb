@@ -8,7 +8,7 @@ class ParticipantsController < ApplicationController
     participant = lesson.participants.build(user_id: user.id, lesson_id: lesson.id)
     participant.save
     session.delete(:lesson_id)
-    redirect_to lessons_path
+    redirect_to lesson_path(lesson.id)
   end
 
   # def participation
@@ -34,6 +34,6 @@ class ParticipantsController < ApplicationController
     participant = Participant.find_by(user_id: user.id, lesson_id: lesson.id)
     participant.destroy
     session.delete(:lesson_id)
-    redirect_to lessons_path
+    redirect_to lesson_path(lesson.id)
   end
 end

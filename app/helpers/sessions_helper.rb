@@ -12,10 +12,8 @@ module SessionsHelper
   end
 
   def current_admin?
-    if signed_in?
-      current_user.admin
-    end
-  end 
+    signed_in? && current_user.admin
+  end
 
   def require_user
     if !signed_in?

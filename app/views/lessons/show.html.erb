@@ -8,19 +8,15 @@
 
 <table class="table table-striped">
   <tr>
-    <th>#</th>
-    <td><%= lesson_find_id.id %></td>
-    <th class="comment">概要</th>
-  </tr>
-  <tr>
     <th>講座</th>
     <td><%= lesson_find_id.name %></td>
-    <td rowspan="4"><%= lesson_find_id.comment %></td>
+    <th class="comment">概要</th>
   </tr>
   <tr>
     <th>日程</th>
     <% if lesson_find_id.time.present? %>
       <td><%= lesson_find_id.time.strftime("%m月%d日") %></td>
+      <td rowspan="3"><%= lesson_find_id.comment %></td>
     <% else %>
       <td></td>
     <% end %>

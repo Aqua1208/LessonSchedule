@@ -1,16 +1,13 @@
 <div id="lessons">
   <table class="table table-striped">
     <tr>
-      <th>#</th>
-      <th>DateTime</th>
-      <th>Lesson</th>
-      <th>Teacher</th>
-      <th></th>
+      <th>日時</th>
+      <th>講座</th>
+      <th>講師</th>
+      <th>講座詳細（申し込み）</th>
     </tr>
-    <% lesson_all.select{ |prelesson| prelesson.time > Time.now }.each do |lesson| %>
-    <%# lesson_all.each do |lesson| %>
+    <% @lesson.each do |lesson| %>
       <tr>
-        <td><%= lesson.id %></td>
         <% if lesson.time.present? %>
           <td><%= lesson.time.strftime("%m/%d %H:%M") %></td>
         <% else %>
@@ -22,20 +19,15 @@
           <% if signed_in? %>
             <% if current_admin? %>
               <%= link_to "講座編集", edit_lesson_path(lesson), class: "btn btn-success" %>
-            <%
-=begin%>
- <% else %>
+            <% else %>
               <% if Participant.find_by(user_id: current_user.id ,lesson_id: lesson.id).nil? %>
-                <%= form_with model: Participant.new do |f| %>
-                  <%= f.submit "参加登録", class: "btn btn-success" %>
-                <% end %>
+                <div class="alert alert-warning">未登録</div>
               <% else %>
-                <%= button_to '登録解除', destroy_participants_path, method: :delete, class: 'btn btn-warning' %>
-              <% end %> 
-<%
-=end%>
+                <div class="alert alert-success">登録済</div>
+              <% end %>
+              <%= link_to "参加申込", lesson, class: "btn btn-success" %>
             <% end %>
-            <%= link_to "講座詳細", lesson, class: "btn btn-success" %>
+            
           <% else %>
             <%= link_to "サインインしてください", signin_path, class: "btn btn-success" %>
           <% end %>
