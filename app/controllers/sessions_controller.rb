@@ -8,7 +8,6 @@ class SessionsController < ApplicationController
       sign_in(user)
       redirect_to lessons_path
     else
-      flash.now[:error] = "ログインに失敗しました"
       render "new", status: :unprocessable_entity
     end
   end

@@ -1,5 +1,5 @@
 <% content_for :title do %>
-  <h1>User / <%= @user.name %></h1>
+  <h1><%= @user.name %></h1>
 <% end %>
 
 <% content_for :nav do %>
@@ -26,7 +26,7 @@
           <td><%= lesson.time.strftime("%m月%d日") %></td>
           <td><%= lesson.time.strftime("%H時%M分") %></td>
         <% end %>
-        <td><%= teacher_all.find(lesson.teacher_id).name %></td>
+        <td><%= link_to teacher_all.find(lesson.teacher_id).name, teacher_path(lesson.teacher_id) %></td>
       </tr>
     <% end %>
   </table>

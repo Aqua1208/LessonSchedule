@@ -2,9 +2,11 @@ class LessonsController < ApplicationController
   before_action :set_lesson, only: [ :show, :edit, :update, :destroy ]
 
   def index
+    @lesson = Lesson.all.select{ |prelesson| prelesson.time > Time.now }
   end
 
   def history
+    @lesson = Lesson.all
   end
 
   # GET /lessons/1 or /lessons/1.json
